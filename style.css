@@ -11,7 +11,7 @@
     src: url('fonts/Laur.ttf') format('truetype');
 }
 
-/* ===== BASE STYLES ===== */
+/* overall page styles global */
 body {
     display: flex;
     flex-direction: column;
@@ -46,7 +46,7 @@ p {
     font-size: 24px;
 }
 
-/* ===== NAVIGATION ===== */
+/* nav bar styling*/
 nav {
     display: flex;
     justify-content: space-between;
@@ -99,7 +99,7 @@ nav a:hover {
     margin: 0 15px;
 }
 
-/* ===== AUTH BUTTONS ===== */
+/* auth buttons */
 .auth-buttons {
     display: flex;
     gap: 10px;
@@ -129,7 +129,7 @@ nav a:hover {
     margin-right: 15px;
 }
 
-/* ===== HERO SECTION ===== */
+/* hero*/
 .hero-container {
     text-align: center;
     padding: 80px 20px;
@@ -299,7 +299,7 @@ a.btn-new {
     background-color: rgba(253, 240, 225, 0.8);
 }
 
-/* ===== PROJECTS TABLE ===== */
+/* projects table*/
 .projects-table {
     width: 100%;
     margin: 20px 0;
@@ -336,7 +336,7 @@ a.btn-new {
     background-color: rgb(105, 84, 67);
 }
 
-/* ===== FORM STYLES ===== */
+/* form styles */
 .form-container {
     display: flex;
     justify-content: center;
@@ -420,7 +420,7 @@ a.btn-new {
     color: rgb(105, 84, 67);
 }
 
-/* ===== MESSAGE BOXES ===== */
+/* message boxes */
 #message {
     margin-bottom: 20px;
     padding: 15px;
@@ -442,7 +442,7 @@ a.btn-new {
     border: 3px solid rgba(51, 117, 51, 1);
 }
 
-/* ===== CALENDAR STYLES ===== */
+/* calander styles*/
 .calendar-container {
     min-width: 90vw;
     margin: 40px auto;
@@ -663,7 +663,7 @@ a.btn-new {
     background-color: rgba(125, 99, 79, 0.3);
 }
 
-/* ===== PROJECT FORM STYLES ===== */
+/* project form styles */
 .project-form-container {
     max-width: 800px;
     margin: 0 auto;
@@ -802,7 +802,7 @@ a.btn-new {
     border-radius: 8px;
 }
 
-/* ===== FOOTER ===== */
+/* footer */
 footer {
     margin-top: auto;
     width: 100%;
@@ -817,7 +817,7 @@ footer p {
     padding-left: 20px;
 }
 
-/* ===== RESPONSIVE STYLES ===== */
+/* styling for nav, feature box etc. "responvive styles" */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
