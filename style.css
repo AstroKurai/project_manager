@@ -231,7 +231,9 @@ a.btn-new {
 
 /* documents and content area */
 .content-area {
-    padding: 10px;
+    padding: 20px 40px;
+    width: 100%;
+    box-sizing: border-box; 
 }
 
 .documents-layout {
