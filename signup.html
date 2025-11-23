@@ -1,0 +1,97 @@
+<!--
+    Name: Jadelynn Wolden
+    Date: 11/11/2025
+    Filename: signup.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TaskFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Project Manager</h1>
+            <a href="index.html">home</a>
+            <a href="projects.html">projects</a>
+            <a href="calendar.html">calendar</a>
+            <a href="documents.html">docs</a>
+        </div>
+        <div class="nav-right">
+            <a href="signin.html" class="btn-auth">Sign In</a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="form-box">
+            <h1>Create Account</h1>
+            
+            <div id="message"></div>
+
+            <form id="signupForm" method="post" action="signup.php">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="signin.html">Sign in here</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jadelynn. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('signup.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block';
+                
+                if (data.auth) {
+                    messageDiv.className = 'success';
+                    messageDiv.innerHTML = 'Account created successfully! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    messageDiv.className = 'error';
+                    messageDiv.innerHTML = data.message || 'Sign up failed. Please try again.';
+                }
+            })
+            .catch(error => {
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'error';
+                messageDiv.innerHTML = 'An error occurred. Please try again.';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

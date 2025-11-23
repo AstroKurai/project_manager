@@ -1,0 +1,171 @@
+<!--
+    Name: Jadelynn Wolden
+    Date: 09/20/2025
+    Filename: projects.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - TaskFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Project Manager</h1>
+            <a href="index.html">home</a>
+            <a href="projects.html">projects</a>
+            <a href="calendar.html">calendar</a>
+            <a href="documents.html">docs</a>
+        </div>
+        <div class="nav-right" id="authSection">
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>My Projects</h1>
+        <a href="form.php" class="btn-new">+ New Project</a>
+    </div>
+
+    <div class="content-area">
+        <input type="text" placeholder="Search projects..." class="search-input" id="searchInput">
+
+        <div id="projectsContainer" class="projects-grid">
+        </div>
+    <footer>
+        <p>&copy; 2025 Jadelynn. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function () {
+            fetch('verifyAuth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authSection = document.getElementById('authSection');
+
+                    if (data.auth) {
+                        authSection.innerHTML = `
+                            <span class="welcome-message">Welcome, ${data.firstname}</span>
+                            <button class="btn-auth" id="signOutBtn">Sign Out</button>
+                        `;
+
+                        document.getElementById('signOutBtn').addEventListener('click', function () {
+                            fetch('signout.php')
+                                .then(response => {
+                                    window.location.href = 'index.html';
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    } else {
+                        window.location.href = 'signin.html?redirect=projects.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    window.location.href = 'signin.html';
+                });
+        });
+        loadProjects();
+
+        function loadProjects() {
+            fetch('read_projects.php')
+                .then(response => response.json())
+                .then(projects => {
+                    const container = document.getElementById('projectsContainer');
+
+                    if (projects.error) {
+                        container.innerHTML = '<p>Error loading projects</p>';
+                        return;
+                    }
+
+                    if (projects.length === 0) {
+                        container.innerHTML = '<p>No projects yet. <a href="form.php">Create your first project!</a></p>';
+                        return;
+                    }
+
+                    let html = '<table class="projects-table">';
+                    for (let i = 0; i < projects.length; i += 2) {
+                        html += '<tr>';
+                        html += createProjectCard(projects[i]);
+                        if (projects[i + 1]) {
+                            html += createProjectCard(projects[i + 1]);
+                        } else {
+                            html += '<td></td>';
+                        }
+
+                        html += '</tr>';
+                    }
+
+                    html += '</table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function createProjectCard(project) {
+            return `
+            <td>
+                <h2>${escapeHtml(project.project_name)}</h2>
+                <h3>Status: ${escapeHtml(project.status)}</h3>
+                <p>Priority: ${escapeHtml(project.priority)}</p>
+                <p>Due: ${project.due_date || 'Not set'}</p>
+                <p>Budget: $${project.budget || '0'}</p>
+                <button onclick="viewProject(${project.id})">View</button>
+                <button onclick="editProject(${project.id})">Edit</button>
+                <button onclick="deleteProject(${project.id})">Delete</button>
+            </td>
+        `;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function viewProject(id) {
+            window.location.href = 'view_project.php?id=' + id;
+        }
+
+        function editProject(id) {
+            window.location.href = 'edit_project.php?id=' + id;
+        }
+
+        function deleteProject(id) {
+            if (confirm('Are you sure you want to delete this project?')) {
+                const formData = new FormData();
+                formData.append('id', id);
+
+                fetch('delete_project.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            loadProjects();
+                        } else {
+                            alert('Error deleting project: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+        });
+    </script>
+</body>
+
+</html>

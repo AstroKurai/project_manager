@@ -1,0 +1,84 @@
+<!--
+    Name: Jadelynn Wolden
+    Date: 09/20/2025
+    Filename: index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Project Manager</h1>
+            <a href="index.html">home</a>
+            <a href="projects.html">projects</a>
+            <a href="calendar.html">calendar</a>
+            <a href="documents.html">docs</a>
+        </div>
+        <div class="nav-right" id="authSection">
+        </div>
+    </nav>
+
+    <div class="hero-container">
+        <h1>Manage Your Projects</h1>
+        <p>Keep track of tasks, deadlines, and documents all in one place.</p>
+        <a href="signup.html" class="btn-start">Get Started</a>
+    </div>
+
+    <div class="features-section">
+        <a href="form.php" class="feature-box">
+            <h2>Create Projects</h2>
+        </a>
+        <a href="projects.html" class="feature-box">
+            <h2>Track Tasks</h2>
+        </a>
+        <a href="documents.html" class="feature-box">
+            <h2>Store Documents</h2>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jadelynn. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            fetch('verifyAuth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authSection = document.getElementById('authSection');
+                    
+                    if(data.auth) {
+                        authSection.innerHTML = `
+                            <span class="welcome-message">Welcome, ${data.firstname}</span>
+                            <button class="btn-auth" id="signOutBtn">Sign Out</button>
+                        `;
+                        
+                        document.getElementById('signOutBtn').addEventListener('click', function() {
+                            fetch('signout.php')
+                                .then(response => {
+                                    window.location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    } else {
+                        authSection.innerHTML = `
+                            <a href="signin.html" class="btn-auth">Sign In</a>
+                            <a href="signup.html" class="btn-auth">Sign Up</a>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>

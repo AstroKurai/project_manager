@@ -1,0 +1,856 @@
+/* Name: Jadelynn Wolden
+   Date: 09/20/2025
+   Filename: style.css */
+
+@font-face {
+    font-family: 'Als';
+    src: url('fonts/Als.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Luar';
+    src: url('fonts/Laur.ttf') format('truetype');
+}
+
+/* ===== BASE STYLES ===== */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(253, 240, 225);
+    margin: 0;
+    padding: 0;
+    font-family: 'Luar', sans-serif;
+}
+
+h1, h2, h3, p {
+    color: rgb(125, 99, 79);
+}
+
+h1 {
+    font-family: 'Luar', sans-serif;
+    font-size: 40px;
+}
+
+h2 {
+    font-family: 'Luar', sans-serif;
+    font-size: 34px;
+}
+
+h3 {
+    font-family: 'Luar', sans-serif;
+    font-size: 28px;
+}
+
+p {
+    font-family: 'Luar', sans-serif;
+    font-size: 24px;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(253, 240, 225, 0.836);
+    padding: 5px 20px;
+    border-bottom: 5px solid rgb(125, 99, 79);
+    font-family: 'Luar', sans-serif;
+    height: 60px;
+    border-radius: 20px;
+}
+
+nav h1 {
+    margin-right: auto;
+    color: rgb(125, 99, 79);
+    font-size: 38px;
+    margin-left: 0;
+}
+
+nav a {
+    color: rgb(125, 99, 79);
+    text-decoration: none;
+    padding: 5px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 28px;
+}
+
+nav a:hover {
+    background-color: rgba(206, 181, 164, 0.8);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    color: rgb(125, 99, 79);
+    font-size: 24px;
+    font-family: 'Luar', sans-serif;
+    margin: 0 15px;
+}
+
+/* ===== AUTH BUTTONS ===== */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-auth {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Luar', sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-auth:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+.welcome-message {
+    color: rgb(125, 99, 79);
+    font-size: 24px;
+    font-family: 'Luar', sans-serif;
+    margin-right: 15px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-container {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: rgba(206, 181, 164, 0.3);
+    margin: 40px;
+    border-radius: 20px;
+    border: 5px solid rgb(125, 99, 79);
+}
+
+.hero-container h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.hero-container p {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.btn-start {
+    display: inline-block;
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 28px;
+    transition: background-color 0.3s;
+}
+
+.btn-start:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+/* ===== FEATURES SECTION ===== */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature-box {
+    background-color: rgba(253, 240, 225, 0.8);
+    border: 5px solid rgb(121, 104, 91);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    width: 300px;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(125, 99, 79, 0.3);
+    background-color: rgba(206, 181, 164, 0.5);
+}
+
+.feature-box h2 {
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 40px;
+    background-color: rgba(206, 181, 164, 0.3);
+    border-bottom: 5px solid rgb(125, 99, 79);
+}
+
+.btn-new {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-new:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+a.btn-new {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* ===== CONTENT AREA ===== */
+.content-area {
+    padding: 30px;
+}
+
+.documents-layout {
+    display: flex;
+    gap: 10px;
+    align-items: flex;
+}
+
+.documents-layout .project-form-box {
+    flex: 1;
+}
+
+.documents-layout .project-form-box:first-child {
+    max-width: 400px;
+    height: 510px;
+}
+
+.search-input {
+    width: 100%;
+    margin: 20px auto;
+    display: block;
+    border: 3px solid rgb(125, 99, 79);
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 20px;
+    background-color: rgba(253, 240, 225, 0.8);
+}
+
+/* Content area form styling */
+.content-area .form-group {
+    margin-bottom: 20px;
+}
+
+.content-area .form-group label {
+    display: block;
+    font-size: 20px;
+    color: rgb(125, 99, 79);
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.content-area .form-group select,
+.content-area .form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid rgb(125, 99, 79);
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 18px;
+    background-color: rgba(253, 240, 225, 0.5);
+    box-sizing: border-box;
+    min-height: 50px;
+}
+
+.content-area .form-group select:focus {
+    outline: none;
+    background-color: rgba(253, 240, 225, 0.8);
+}
+
+/* ===== PROJECTS TABLE ===== */
+.projects-table {
+    width: 100%;
+    margin: 20px 0;
+    background-color: rgba(253, 240, 225, 0.822);
+}
+
+.projects-table td {
+    border: 5px solid rgb(125, 99, 79);
+    padding: 20px;
+    border-radius: 20px;
+    vertical-align: top;
+    text-align: center;
+    background-color: rgba(253, 240, 225, 0.9);
+}
+
+.projects-table h2 {
+    margin-top: 0;
+}
+
+.projects-table button {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Luar', sans-serif;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.projects-table button:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+/* ===== FORM STYLES ===== */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 40px 20px;
+}
+
+.form-box {
+    background-color: rgba(253, 240, 225, 0.9);
+    border: 5px solid rgb(125, 99, 79);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-box h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgb(125, 99, 79);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 20px;
+    color: rgb(125, 99, 79);
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid rgb(125, 99, 79);
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 18px;
+    background-color: rgba(253, 240, 225, 0.5);
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    background-color: rgba(253, 240, 225, 0.8);
+}
+
+.btn-submit {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 12px 40px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+.form-box p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.form-box a {
+    color: rgb(125, 99, 79);
+    text-decoration: underline;
+}
+
+.form-box a:hover {
+    color: rgb(105, 84, 67);
+}
+
+/* ===== MESSAGE BOXES ===== */
+#message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    display: none;
+}
+
+#message.error {
+    background-color: rgba(255, 200, 200, 0.9);
+    color: rgba(117, 51, 51, 1);
+    border: 3px solid rgba(117, 51, 51, 1);
+}
+
+#message.success {
+    background-color: rgba(200, 255, 200, 0.9);
+    color: rgba(51, 117, 51, 1);
+    border: 3px solid rgba(51, 117, 51, 1);
+}
+
+/* ===== CALENDAR STYLES ===== */
+.calendar-container {
+    min-width: 90vw;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: rgba(206, 181, 164, 0.3);
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid rgb(125, 99, 79);
+}
+
+.calendar-header h1 {
+    margin: 0;
+}
+
+.month-nav {
+    display: flex;
+    align-items: center;
+    gap: 75px;
+}
+
+.month-nav button {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-family: 'Luar', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.month-nav button:hover {
+    background-color: rgb(105, 84, 67);
+}
+
+.current-month {
+    font-size: 32px;
+    color: rgb(125, 99, 79);
+    font-weight: bold;
+    min-width: 60vw;
+    text-align: center;
+}
+
+.calendar-grid {
+    background-color: rgba(253, 240, 225, 0.9);
+    border: 5px solid rgb(125, 99, 79);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 15px;
+    font-size: 20px;
+    border: 2px solid rgb(253, 240, 225);
+}
+
+.calendar-table td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: top;
+    height: 80px;
+    border: 2px solid rgba(125, 99, 79, 0.3);
+    font-size: 18px;
+    background-color: rgba(253, 240, 225, 0.5);
+    position: relative;
+}
+
+.calendar-table td.empty {
+    background-color: rgba(206, 181, 164, 0.2);
+}
+
+.calendar-table td.today {
+    background-color: rgba(125, 99, 79, 0.2);
+    border: 3px solid rgb(125, 99, 79);
+    font-weight: bold;
+}
+
+.calendar-table td.has-events {
+    background-color: rgba(206, 181, 164, 0.4);
+}
+
+.day-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(125, 99, 79);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.event-indicator {
+    font-size: 14px;
+    margin: 2px 0;
+    padding: 3px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-project {
+    background-color: rgba(125, 99, 79, 0.6);
+    color: white;
+}
+
+.event-task {
+    background-color: rgba(125, 99, 79, 0.3);
+    color: rgb(125, 99, 79);
+}
+
+.upcoming-section {
+    background-color: rgba(253, 240, 225, 0.9);
+    border: 5px solid rgb(125, 99, 79);
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.upcoming-section h2 {
+    margin-top: 0;
+    border-bottom: 3px solid rgb(125, 99, 79);
+    padding-bottom: 10px;
+}
+
+.deadline-list {
+    list-style: none;
+    padding: 0;
+}
+
+.deadline-item {
+    padding: 15px;
+    margin: 10px 0;
+    background-color: rgba(206, 181, 164, 0.3);
+    border-left: 5px solid rgb(125, 99, 79);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deadline-item.overdue {
+    border-left-color: #d32f2f;
+    background-color: rgba(255, 200, 200, 0.3);
+}
+
+.deadline-date {
+    font-weight: bold;
+    color: rgb(125, 99, 79);
+    min-width: 100px;
+}
+
+.deadline-info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.deadline-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(125, 99, 79);
+}
+
+.deadline-project {
+    font-size: 16px;
+    color: rgba(125, 99, 79, 0.7);
+}
+
+.deadline-type {
+    background-color: rgb(125, 99, 79);
+    color: rgb(253, 240, 225);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.legend {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(206, 181, 164, 0.2);
+    border-radius: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-box.project {
+    background-color: rgba(125, 99, 79, 0.6);
+}
+
+.legend-box.task {
+    background-color: rgba(125, 99, 79, 0.3);
+}
+
+/* ===== PROJECT FORM STYLES ===== */
+.project-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.project-form-box {
+    background-color: rgba(253, 240, 225, 0.9);
+    border: 5px solid rgb(125, 99, 79);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 20px;
+}
+
+.project-form-box h2 {
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.project-form-box label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: rgb(125, 99, 79);
+}
+
+.project-form-box input[type="text"],
+.project-form-box input[type="number"],
+.project-form-box input[type="date"],
+.project-form-box input[type="time"],
+.project-form-box textarea,
+.project-form-box select {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid rgb(125, 99, 79);
+    border-radius: 10px;
+    font-family: 'Luar', sans-serif;
+    font-size: 18px;
+    background-color: rgba(253, 240, 225, 0.5);
+    box-sizing: border-box;
+}
+
+.project-form-box textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.project-form-box input:focus,
+.project-form-box textarea:focus,
+.project-form-box select:focus {
+    outline: none;
+    background-color: rgba(253, 240, 225, 0.8);
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-item,
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-item input[type="checkbox"],
+.radio-item input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.checkbox-item label,
+.radio-item label {
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.submitted-data {
+    background-color: rgba(206, 181, 164, 0.3);
+    border: 5px solid rgb(121, 104, 91);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.submitted-data h2 {
+    color: rgb(125, 99, 79);
+    margin-top: 0;
+}
+
+.data-item {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(253, 240, 225, 0.6);
+    border-radius: 8px;
+}
+
+.data-label {
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(125, 99, 79);
+}
+
+.data-value {
+    font-size: 18px;
+    margin-top: 5px;
+    color: rgb(125, 99, 79);
+}
+
+.error-box {
+    background-color: rgba(255, 200, 200, 0.9);
+    border: 5px solid rgba(117, 51, 51, 1);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.error-box h2 {
+    color: rgba(117, 51, 51, 1);
+    margin-top: 0;
+}
+
+.error-item {
+    color: rgba(117, 51, 51, 1);
+    font-size: 20px;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    margin-top: auto;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background-color: rgba(253, 240, 225, 0.836);
+    border-top: 5px solid rgb(125, 99, 79);
+}
+
+footer p {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .nav-left, .nav-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .features-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .feature-box {
+        width: 90%;
+    }
+    
+    .projects-table td {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .calendar-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .month-nav {
+        flex-direction: column;
+    }
+    
+    .documents-layout {
+        flex-direction: column;
+    }
+    
+    .documents-layout .project-form-box:first-child {
+        max-width: 100%;
+    }
+}

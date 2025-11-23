@@ -1,0 +1,167 @@
+<!--
+    Name: Jadelynn Wolden
+    Date: 11/17/2025
+    Filename: documents.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - TaskFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Project Manager</h1>
+            <a href="index.html">home</a>
+            <a href="projects.html">projects</a>
+            <a href="calendar.html">calendar</a>
+            <a href="documents.html">docs</a>
+        </div>
+        <div class="nav-right" id="authSection">
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>My Documents</h1>
+    </div>
+
+    <div class="content-area">
+        <div class="documents-layout">
+            <div class="project-form-box">
+                <h2>Upload Document</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="project_id">Select Project:</label>
+                        <select id="project_id" name="project_id" required>
+                            <option value="">Loading projects...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="document">Choose File:</label>
+                        <input type="file" id="document" name="document" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Upload Document</button>
+                </form>
+            </div>
+            
+            <div class="project-form-box">
+                <h2>My Documents</h2>
+                <input type="text" placeholder="Search documents..." class="search-input" style="margin: 0 0 20px 0;">
+        <table class="projects-table">
+            <tr>
+                <td>
+                    <h2>Document Name</h2>
+                    <h3>Project: </h3>
+                    <p>Uploaded:</p>
+                    <p>Type:</p>
+                    <button>View</button>
+                    <button>Download</button>
+                    <button>Delete</button>
+                </td>
+                <td>
+                    <h2>Document Name</h2>
+                    <h3>Project: </h3>
+                    <p>Uploaded:</p>
+                    <p>Type:</p>
+                    <button>View</button>
+                    <button>Download</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+        </table>
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jadelynn. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function () {
+            fetch('verifyAuth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authSection = document.getElementById('authSection');
+
+                    if (data.auth) {
+                        authSection.innerHTML = `
+                            <span class="welcome-message">Welcome, ${data.email}</span>
+                            <button class="btn-auth" id="signOutBtn">Sign Out</button>
+                        `;
+
+                        document.getElementById('signOutBtn').addEventListener('click', function () {
+                            fetch('signout.php')
+                                .then(response => {
+                                    window.location.href = 'index.html';
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                        
+                        // Load projects for the dropdown
+                        loadProjects();
+                    } else {
+                        window.location.href = 'signin.html?redirect=documents.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    window.location.href = 'signin.html';
+                });
+        });
+        
+        function loadProjects() {
+            fetch('read_projects.php')
+                .then(response => response.json())
+                .then(projects => {
+                    const select = document.getElementById('project_id');
+                    select.innerHTML = '<option value="">Select a project...</option>';
+                    
+                    if (projects.error) {
+                        console.error('Error loading projects:', projects.error);
+                        return;
+                    }
+                    
+                    projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.id;
+                        option.textContent = project.project_name;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('upload_document.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Document uploaded successfully!');
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

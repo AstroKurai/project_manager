@@ -1,0 +1,282 @@
+<!--
+    Name: Jadelynn Wolden
+    Date: 11/03/2025
+    Filename: calendar.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - TaskFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>Project Manager</h1>
+            <a href="index.html">home</a>
+            <a href="projects.html">projects</a>
+            <a href="calendar.html">calendar</a>
+            <a href="documents.html">docs</a>
+        </div>
+        <div class="nav-right" id="authSection">
+        </div>
+    </nav>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h1>Calendar</h1>
+            <div class="month-nav">
+                <button id="prevMonth">&lt; Prev</button>
+                <span class="current-month" id="currentMonth"></span>
+                <button id="nextMonth">Next &gt;</button>
+            </div>
+        </div>
+
+        <div class="calendar-grid">
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Sunday</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody">
+                </tbody>
+            </table>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box project"></div>
+                    <span>Project Due Date</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box task"></div>
+                    <span>Task Due Date</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="upcoming-section">
+            <h2>Upcoming Deadlines</h2>
+            <ul class="deadline-list" id="deadlineList">
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jadelynn. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let events = [];
+
+        window.addEventListener('load', function () {
+            fetch('verifyAuth.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.auth) {
+                        window.location.href = 'signin.html?redirect=calendar.html';
+                    } else {
+                        const authSection = document.getElementById('authSection');
+                        authSection.innerHTML = `
+                            <span class="welcome-message">Welcome, ${data.firstname}</span>
+                            <button class="btn-auth" id="signOutBtn">Sign Out</button>
+                        `;
+                        
+                        document.getElementById('signOutBtn').addEventListener('click', function() {
+                            fetch('signout.php')
+                                .then(() => {
+                                    window.location.href = 'index.html';
+                                });
+                        });
+                        
+                        loadCalendarEvents();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    window.location.href = 'signin.html';
+                });
+        });
+
+        function loadCalendarEvents() {
+            fetch('read_calendar_events.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error loading events:', data.error);
+                        events = [];
+                    } else {
+                        events = data;
+                    }
+                    renderCalendar();
+                    renderUpcomingDeadlines();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    events = [];
+                    renderCalendar();
+                    renderUpcomingDeadlines();
+                });
+        }
+
+        function renderCalendar() {
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+            document.getElementById('currentMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+            const calendarBody = document.getElementById('calendarBody');
+            calendarBody.innerHTML = '';
+
+            let date = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+
+                    if (i === 0 && j < firstDay) {
+                        cell.classList.add('empty');
+                    } else if (date > daysInMonth) {
+                        cell.classList.add('empty');
+                    } else {
+                        const dayNumber = document.createElement('span');
+                        dayNumber.classList.add('day-number');
+                        dayNumber.textContent = date;
+                        cell.appendChild(dayNumber);
+
+                        if (date === today.getDate() &&
+                            currentMonth === today.getMonth() &&
+                            currentYear === today.getFullYear()) {
+                            cell.classList.add('today');
+                        }
+
+                        const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                        const dayEvents = events.filter(e => e.date === dateString);
+
+                        if (dayEvents.length > 0) {
+                            cell.classList.add('has-events');
+                            dayEvents.forEach(event => {
+                                const eventDiv = document.createElement('div');
+                                eventDiv.classList.add('event-indicator');
+                                eventDiv.classList.add(`event-${event.type}`);
+                                eventDiv.textContent = event.title.substring(0, 15);
+                                eventDiv.title = event.title;
+                                cell.appendChild(eventDiv);
+                            });
+                        }
+
+                        date++;
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+
+                if (date > daysInMonth) {
+                    break;
+                }
+            }
+        }
+
+        function renderUpcomingDeadlines() {
+            const deadlineList = document.getElementById('deadlineList');
+            deadlineList.innerHTML = '';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const upcomingEvents = sortedEvents.filter(e => new Date(e.date) >= today).slice(0, 10);
+
+            if (upcomingEvents.length === 0) {
+                deadlineList.innerHTML = '<li style="padding: 20px; text-align: center; color: rgb(125, 99, 79);">No upcoming deadlines</li>';
+                return;
+            }
+
+            upcomingEvents.forEach(event => {
+                const li = document.createElement('li');
+                li.classList.add('deadline-item');
+
+                const eventDate = new Date(event.date);
+                if (eventDate < today) {
+                    li.classList.add('overdue');
+                }
+
+                const dateSpan = document.createElement('span');
+                dateSpan.classList.add('deadline-date');
+                dateSpan.textContent = formatDate(event.date);
+
+                const infoDiv = document.createElement('div');
+                infoDiv.classList.add('deadline-info');
+
+                const titleDiv = document.createElement('div');
+                titleDiv.classList.add('deadline-title');
+                titleDiv.textContent = event.title;
+
+                if (event.type === 'task' && event.project) {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.classList.add('deadline-project');
+                    projectDiv.textContent = `Project: ${event.project}`;
+                    infoDiv.appendChild(titleDiv);
+                    infoDiv.appendChild(projectDiv);
+                } else {
+                    infoDiv.appendChild(titleDiv);
+                }
+
+                const typeSpan = document.createElement('span');
+                typeSpan.classList.add('deadline-type');
+                typeSpan.textContent = event.type === 'project' ? 'Project' : 'Task';
+
+                li.appendChild(dateSpan);
+                li.appendChild(infoDiv);
+                li.appendChild(typeSpan);
+
+                deadlineList.appendChild(li);
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', function () {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function () {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>
