@@ -11,7 +11,7 @@
     src: url('fonts/Laur.ttf') format('truetype');
 }
 
-/* overall page styles global */
+/* ===== BASE STYLES ===== */
 body {
     display: flex;
     flex-direction: column;
@@ -46,7 +46,7 @@ p {
     font-size: 24px;
 }
 
-/* nav bar styling*/
+/* ===== NAVIGATION ===== */
 nav {
     display: flex;
     justify-content: space-between;
@@ -99,7 +99,7 @@ nav a:hover {
     margin: 0 15px;
 }
 
-/* auth buttons */
+/* ===== AUTH BUTTONS ===== */
 .auth-buttons {
     display: flex;
     gap: 10px;
@@ -129,7 +129,7 @@ nav a:hover {
     margin-right: 15px;
 }
 
-/* hero*/
+/* ===== HERO SECTION ===== */
 .hero-container {
     text-align: center;
     padding: 80px 20px;
@@ -238,22 +238,23 @@ a.btn-new {
 
 .documents-layout {
     display: flex;
-    gap: 10px;
-    align-items: flex-start;
+    gap: 20px;
     align-items: stretch;
     width: 100%;
 }
 
 .documents-layout .project-form-box {
     flex: 1;
+    max-width: none !important;
+    width: auto;
     margin-top: 0;
     display: flex;
     flex-direction: column;
 }
 
 .documents-layout .project-form-box:first-child {
-    max-width: 400px;
     flex: 0 0 400px;
+    max-width: 400px !important;
 }
 
 .search-input {
@@ -298,7 +299,7 @@ a.btn-new {
     background-color: rgba(253, 240, 225, 0.8);
 }
 
-/* projects table*/
+/* ===== PROJECTS TABLE ===== */
 .projects-table {
     width: 100%;
     margin: 20px 0;
@@ -335,7 +336,7 @@ a.btn-new {
     background-color: rgb(105, 84, 67);
 }
 
-/* form styles */
+/* ===== FORM STYLES ===== */
 .form-container {
     display: flex;
     justify-content: center;
@@ -419,7 +420,7 @@ a.btn-new {
     color: rgb(105, 84, 67);
 }
 
-/* message boxes */
+/* ===== MESSAGE BOXES ===== */
 #message {
     margin-bottom: 20px;
     padding: 15px;
@@ -441,7 +442,7 @@ a.btn-new {
     border: 3px solid rgba(51, 117, 51, 1);
 }
 
-/* calander styles*/
+/* ===== CALENDAR STYLES ===== */
 .calendar-container {
     min-width: 90vw;
     margin: 40px auto;
@@ -662,7 +663,7 @@ a.btn-new {
     background-color: rgba(125, 99, 79, 0.3);
 }
 
-/* project form styles */
+/* ===== PROJECT FORM STYLES ===== */
 .project-form-container {
     max-width: 800px;
     margin: 0 auto;
@@ -801,7 +802,7 @@ a.btn-new {
     border-radius: 8px;
 }
 
-/* footer */
+/* ===== FOOTER ===== */
 footer {
     margin-top: auto;
     width: 100%;
@@ -816,7 +817,7 @@ footer p {
     padding-left: 20px;
 }
 
-/* styling for nav, feature box etc. "responvive styles" */
+/* ===== RESPONSIVE STYLES ===== */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
